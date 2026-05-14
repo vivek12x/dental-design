@@ -392,6 +392,15 @@ body {
   box-shadow: 0 4px 12px rgba(0,0,0,0.03);
 }
 
+/* Center the 9th (last odd) item on desktop grid */
+@media (min-width: 769px) {
+  .accordion-item:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    justify-self: center;
+    width: calc(50% - 10px);
+  }
+}
+
 .accordion-header {
   padding: 24px 32px;
   display: flex;
