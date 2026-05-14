@@ -42,11 +42,23 @@ const setupMatter = () => {
   const runner = Runner.create();
   Runner.run(runner, engine);
 
+  // --- Optimization: Pause physics when off-screen ---
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        runner.enabled = true;
+      } else {
+        runner.enabled = false;
+      }
+    });
+  }, { threshold: 0.1 });
+  observer.observe(canvas);
+
   // Add bodies
   const shapes = [];
   const colors = ['#00A19B', '#FFFFFF', '#1A2226', '#E4DDD3']; // Mint, White, Dark, Latte
   
-  for (let i = 0; i < 40; i++) {
+  for (let i = 0; i < 25; i++) {
     const radius = Math.random() * 30 + 15;
     const x = Math.random() * window.innerWidth;
     const y = Math.random() * window.innerHeight * -1; // Start above screen
@@ -97,17 +109,17 @@ const setupGSAP = () => {
   // Initial Hero Animations
   gsap.fromTo(".navbar", 
     { y: -100, opacity: 0 }, 
-    { y: 0, opacity: 1, duration: 1, ease: "power3.out" }
+    { y: 0, opacity: 1, duration: 1, ease: "power3.out", force3D: true }
   );
 
   gsap.fromTo(".hero-title", 
     { y: 50, opacity: 0 }, 
-    { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 0.3 }
+    { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 0.3, force3D: true }
   );
 
   gsap.fromTo(".hero-subtitle", 
     { y: 30, opacity: 0 }, 
-    { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 0.6 }
+    { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 0.6, force3D: true }
   );
   // Ethos Animations
   const ethosTl = gsap.timeline({
@@ -117,9 +129,9 @@ const setupGSAP = () => {
       toggleActions: "play none none reverse"
     }
   });
-  ethosTl.fromTo(".ethos-image-container", { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: "power3.out" })
-         .fromTo(".ethos-content > *", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" }, "-=0.5")
-         .fromTo(".e-feature", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" }, "-=0.2");
+  ethosTl.fromTo(".ethos-image-container", { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: "power3.out", force3D: true })
+         .fromTo(".ethos-content > *", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", force3D: true }, "-=0.5")
+         .fromTo(".e-feature", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out", force3D: true }, "-=0.2");
 
   // Excellence Animations
   const excTl = gsap.timeline({
@@ -129,27 +141,27 @@ const setupGSAP = () => {
       toggleActions: "play none none reverse"
     }
   });
-  excTl.fromTo(".excellence-content > *", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out" })
-       .fromTo(".excellence-image-container", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: "power3.out" }, "-=0.6");
+  excTl.fromTo(".excellence-content > *", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", force3D: true })
+       .fromTo(".excellence-image-container", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: "power3.out", force3D: true }, "-=0.6");
 
   // Services Animations
   gsap.fromTo(".section-title-center", 
     { y: 30, opacity: 0 }, 
-    { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", scrollTrigger: { trigger: ".services-accordion-section", start: "top 80%" } }
+    { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", scrollTrigger: { trigger: ".services-accordion-section", start: "top 80%" }, force3D: true }
   );
   gsap.fromTo(".accordion-item",
     { y: 50, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", scrollTrigger: { trigger: ".services-accordion-grid", start: "top 80%" } }
+    { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", scrollTrigger: { trigger: ".services-accordion-grid", start: "top 80%" }, force3D: true }
   );
 
   // Gallery Animations
   gsap.fromTo(".gallery-header > *",
     { y: 30, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", scrollTrigger: { trigger: ".gallery-section", start: "top 80%" } }
+    { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", scrollTrigger: { trigger: ".gallery-section", start: "top 80%" }, force3D: true }
   );
   gsap.fromTo(".gal-img-wrapper",
     { y: 50, opacity: 0, scale: 0.95 },
-    { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.15, ease: "power3.out", scrollTrigger: { trigger: ".gallery-grid", start: "top 75%" } }
+    { y: 0, opacity: 1, scale: 1, duration: 0.8, stagger: 0.15, ease: "power3.out", scrollTrigger: { trigger: ".gallery-grid", start: "top 75%" }, force3D: true }
   );
 
   // Booking Animations
@@ -160,27 +172,27 @@ const setupGSAP = () => {
       toggleActions: "play none none reverse"
     }
   });
-  bookTl.fromTo(".booking-container", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out" })
-        .fromTo(".booking-info > *", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" }, "-=0.4")
-        .fromTo(".booking-form > *", { x: 30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out" }, "-=0.4");
+  bookTl.fromTo(".booking-container", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out", force3D: true })
+        .fromTo(".booking-info > *", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out", force3D: true }, "-=0.4")
+        .fromTo(".booking-form > *", { x: 30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out", force3D: true }, "-=0.4");
   // Map Animations
   gsap.fromTo(".map-header > *",
     { y: 30, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", scrollTrigger: { trigger: ".map-section", start: "top 80%" } }
+    { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", scrollTrigger: { trigger: ".map-section", start: "top 80%" }, force3D: true }
   );
   gsap.fromTo(".map-container",
     { opacity: 0, scale: 0.98 },
-    { opacity: 1, scale: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: ".map-container", start: "top 80%" } }
+    { opacity: 1, scale: 1, duration: 1, ease: "power3.out", scrollTrigger: { trigger: ".map-container", start: "top 80%" }, force3D: true }
   );
   gsap.fromTo(".m-info",
     { y: 30, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out", scrollTrigger: { trigger: ".map-info-bar", start: "top 90%" } }
+    { y: 0, opacity: 1, duration: 0.8, stagger: 0.15, ease: "power3.out", scrollTrigger: { trigger: ".map-info-bar", start: "top 90%" }, force3D: true }
   );
 
   // Footer Animations
   gsap.fromTo(".footer-grid > *",
     { y: 40, opacity: 0 },
-    { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", scrollTrigger: { trigger: ".site-footer", start: "top 90%" } }
+    { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", scrollTrigger: { trigger: ".site-footer", start: "top 90%" }, force3D: true }
   );
 };
 
