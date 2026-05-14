@@ -2,6 +2,7 @@ import './style.css';
 import Matter from 'matter-js';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import pngImageUrl from './png_image.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -11,16 +12,16 @@ const setupMatter = () => {
   if (!canvas) return;
 
   const Engine = Matter.Engine,
-        Render = Matter.Render,
-        Runner = Matter.Runner,
-        MouseConstraint = Matter.MouseConstraint,
-        Mouse = Matter.Mouse,
-        Composite = Matter.Composite,
-        Bodies = Matter.Bodies;
+    Render = Matter.Render,
+    Runner = Matter.Runner,
+    MouseConstraint = Matter.MouseConstraint,
+    Mouse = Matter.Mouse,
+    Composite = Matter.Composite,
+    Bodies = Matter.Bodies;
 
   const engine = Engine.create();
   const world = engine.world;
-  
+
   // Set gravity
   engine.gravity.y = 0.5;
 
@@ -38,7 +39,7 @@ const setupMatter = () => {
   });
 
   Render.run(render);
-  
+
   const runner = Runner.create();
   Runner.run(runner, engine);
 
@@ -57,32 +58,33 @@ const setupMatter = () => {
   // Add bodies
   const shapes = [];
   const colors = ['#00A19B', '#FFFFFF', '#1A2226', '#E4DDD3']; // Mint, White, Dark, Latte
-  
+
   for (let i = 0; i < 25; i++) {
-    const radius = Math.random() * 30 + 15;
+    const radius = Math.random() * 20 + 10; // Increased size to be bigger
     const x = Math.random() * window.innerWidth;
     const y = Math.random() * window.innerHeight * -1; // Start above screen
-    
-    let body;
-    if (Math.random() > 0.5) {
-      body = Bodies.circle(x, y, radius, {
-        render: { fillStyle: colors[Math.floor(Math.random() * colors.length)] },
-        restitution: 0.9,
-        frictionAir: 0.01,
-        friction: 0.1
-      });
-    } else {
-      body = Bodies.rectangle(x, y, radius * 1.5, radius * 1.5, {
-        render: { fillStyle: colors[Math.floor(Math.random() * colors.length)] },
-        chamfer: { radius: radius * 0.4 }, // rounded corners
-        restitution: 0.8,
-        frictionAir: 0.02,
-        friction: 0.1
-      });
-    }
+
+    // Use the png_image.png for all falling objects
+    // Adjusting scale to make the image appropriately big
+    const baseImageSize = 800; // Smaller divisor means a larger image scale
+    const scale = (radius * 2.5) / baseImageSize;
+
+    const body = Bodies.circle(x, y, radius, {
+      render: {
+        sprite: {
+          texture: pngImageUrl,
+          xScale: scale,
+          yScale: scale
+        }
+      },
+      restitution: 0.8,
+      frictionAir: 0.01,
+      friction: 0.1
+    });
+
     shapes.push(body);
   }
-  
+
   // Floor and walls
   const wallOptions = { isStatic: true, render: { visible: false } };
   const ground = Bodies.rectangle(window.innerWidth / 2, window.innerHeight + 50, window.innerWidth * 2, 100, wallOptions);
@@ -107,18 +109,18 @@ const setupMatter = () => {
 // --- GSAP Setup ---
 const setupGSAP = () => {
   // Initial Hero Animations
-  gsap.fromTo(".navbar", 
-    { y: -100, opacity: 0 }, 
+  gsap.fromTo(".navbar",
+    { y: -100, opacity: 0 },
     { y: 0, opacity: 1, duration: 1, ease: "power3.out", force3D: true }
   );
 
-  gsap.fromTo(".hero-title", 
-    { y: 50, opacity: 0 }, 
+  gsap.fromTo(".hero-title",
+    { y: 50, opacity: 0 },
     { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 0.3, force3D: true }
   );
 
-  gsap.fromTo(".hero-subtitle", 
-    { y: 30, opacity: 0 }, 
+  gsap.fromTo(".hero-subtitle",
+    { y: 30, opacity: 0 },
     { y: 0, opacity: 1, duration: 1.2, ease: "power3.out", delay: 0.6, force3D: true }
   );
   // Ethos Animations
@@ -130,8 +132,8 @@ const setupGSAP = () => {
     }
   });
   ethosTl.fromTo(".ethos-image-container", { x: -50, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: "power3.out", force3D: true })
-         .fromTo(".ethos-content > *", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", force3D: true }, "-=0.5")
-         .fromTo(".e-feature", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out", force3D: true }, "-=0.2");
+    .fromTo(".ethos-content > *", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", force3D: true }, "-=0.5")
+    .fromTo(".e-feature", { y: 20, opacity: 0 }, { y: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out", force3D: true }, "-=0.2");
 
   // Excellence Animations
   const excTl = gsap.timeline({
@@ -142,11 +144,11 @@ const setupGSAP = () => {
     }
   });
   excTl.fromTo(".excellence-content > *", { y: 30, opacity: 0 }, { y: 0, opacity: 1, duration: 0.8, stagger: 0.1, ease: "power3.out", force3D: true })
-       .fromTo(".excellence-image-container", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: "power3.out", force3D: true }, "-=0.6");
+    .fromTo(".excellence-image-container", { x: 50, opacity: 0 }, { x: 0, opacity: 1, duration: 1, ease: "power3.out", force3D: true }, "-=0.6");
 
   // Services Animations
-  gsap.fromTo(".section-title-center", 
-    { y: 30, opacity: 0 }, 
+  gsap.fromTo(".section-title-center",
+    { y: 30, opacity: 0 },
     { y: 0, opacity: 1, duration: 0.8, ease: "power3.out", scrollTrigger: { trigger: ".services-accordion-section", start: "top 80%" }, force3D: true }
   );
   gsap.fromTo(".accordion-item",
@@ -173,8 +175,8 @@ const setupGSAP = () => {
     }
   });
   bookTl.fromTo(".booking-container", { y: 50, opacity: 0 }, { y: 0, opacity: 1, duration: 1, ease: "power3.out", force3D: true })
-        .fromTo(".booking-info > *", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out", force3D: true }, "-=0.4")
-        .fromTo(".booking-form > *", { x: 30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out", force3D: true }, "-=0.4");
+    .fromTo(".booking-info > *", { x: -30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out", force3D: true }, "-=0.4")
+    .fromTo(".booking-form > *", { x: 30, opacity: 0 }, { x: 0, opacity: 1, duration: 0.6, stagger: 0.1, ease: "power3.out", force3D: true }, "-=0.4");
   // Map Animations
   gsap.fromTo(".map-header > *",
     { y: 30, opacity: 0 },
@@ -199,10 +201,10 @@ const setupGSAP = () => {
 // --- Navigation Setup ---
 const setupNavigation = () => {
   const navLinks = document.querySelectorAll('.nav-pill a');
-  
+
   // Update on click for smooth feedback
   navLinks.forEach(link => {
-    link.addEventListener('click', function() {
+    link.addEventListener('click', function () {
       navLinks.forEach(n => n.classList.remove('active'));
       this.classList.add('active');
     });
@@ -213,7 +215,7 @@ const setupNavigation = () => {
   sections.forEach(section => {
     const id = section.getAttribute('id');
     if (!id) return;
-    
+
     ScrollTrigger.create({
       trigger: section,
       start: "top center",
