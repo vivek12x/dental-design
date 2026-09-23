@@ -64,9 +64,9 @@ const setupMatter = () => {
     const x = Math.random() * window.innerWidth;
     const y = Math.random() * window.innerHeight * -1; // Start above screen
 
-    // Use the small_tooth.png for all falling objects
-    // Adjusting scale to make the image appropriately big
-    const baseImageSize = 150; // Smaller divisor means a larger image scale
+    // Original image was 4096px, with baseImageSize=800.
+    // To match the exact same visual scale with a 150px image: baseImageSize = 800 * (150 / 4096) = ~29.3
+    const baseImageSize = 29.3; 
     const scale = (radius * 2.5) / baseImageSize;
 
     const body = Bodies.circle(x, y, radius, {
