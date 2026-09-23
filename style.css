@@ -815,32 +815,60 @@ body {
 
 @media (max-width: 1024px) {
   .hero-title { font-size: 4.5rem; }
+  
+  /* Navbar adjustments for tablet */
   .navbar {
-    padding: 20px;
-    grid-template-columns: 1fr;
-    justify-items: center;
+    padding: 15px 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
     gap: 15px;
-    background: rgba(228, 221, 211, 0.9); /* Slight background to make it readable when stacked */
+    background: rgba(228, 221, 211, 0.95);
     backdrop-filter: blur(10px);
   }
-  .nav-book-btn { justify-self: center; }
+  .nav-pill {
+    order: 3;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 8px;
+  }
+  .nav-pill a {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+  }
+  .nav-book-btn {
+    order: 2;
+  }
+  
   .ethos-section { flex-direction: column; text-align: center; }
   .ethos-image-container, .excellence-image-container { height: 400px; width: 100%; }
   .excellence-section { flex-direction: column-reverse; text-align: center; }
+  
+  /* Fix cramped accordion on tablet */
+  .services-accordion-grid { grid-template-columns: 1fr; }
+  
   .booking-container { flex-direction: column; }
   .booking-info, .booking-form { padding: 40px; }
-  .footer-grid { grid-template-columns: 1fr 1fr; }
+  
+  .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+  .f-brand { grid-column: 1 / -1; text-align: center; }
+  .f-brand img { margin: 0 auto; }
 }
 
 @media (max-width: 768px) {
   .hero-title { font-size: 3.5rem; }
   .hero-subtitle { font-size: 1.2rem; padding: 0 15px; }
-  .nav-pill { display: flex; flex-wrap: wrap; justify-content: center; }
-  .nav-pill a { padding: 6px 12px; font-size: 0.85rem; }
+  
+  .nav-pill a { padding: 5px 10px; font-size: 0.85rem; }
+  
   .ethos-section, .excellence-section, .booking-section, .services-accordion-section, .gallery-section { gap: 40px; padding-top: 80px; padding-bottom: 80px; }
-  .services-accordion-grid { grid-template-columns: 1fr; }
+  
   .form-row { flex-direction: column; gap: 0; }
   .map-info-bar { flex-direction: column; gap: 30px; text-align: center; }
+  
   .footer-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
   .social-icons { justify-content: center; }
   .f-desc { margin: 0 auto 30px; }
@@ -850,6 +878,11 @@ body {
 @media (max-width: 480px) {
   .hero-title { font-size: 2.8rem; }
   .hero-subtitle { font-size: 1rem; }
+  
+  .navbar { padding: 10px 15px; }
+  .logo { font-size: 1.2rem; }
+  .nav-book-btn { padding: 8px 16px; font-size: 0.85rem; }
+  
   .ethos-features { flex-direction: column; gap: 20px; text-align: left; }
   .excellence-image-container, .ethos-image-container { height: 300px; }
   .booking-info, .booking-form { padding: 24px; }
