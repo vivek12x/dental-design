@@ -2,7 +2,7 @@ import './style.css';
 import Matter from 'matter-js';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import pngImageUrl from './png_image.png';
+import pngImageUrl from './small_tooth.png';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -64,9 +64,9 @@ const setupMatter = () => {
     const x = Math.random() * window.innerWidth;
     const y = Math.random() * window.innerHeight * -1; // Start above screen
 
-    // Use the png_image.png for all falling objects
+    // Use the small_tooth.png for all falling objects
     // Adjusting scale to make the image appropriately big
-    const baseImageSize = 800; // Smaller divisor means a larger image scale
+    const baseImageSize = 150; // Smaller divisor means a larger image scale
     const scale = (radius * 2.5) / baseImageSize;
 
     const body = Bodies.circle(x, y, radius, {
