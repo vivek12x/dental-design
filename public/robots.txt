@@ -1,0 +1,37 @@
+# Robots.txt for Subiksha Dental Clinic (https://subikshadentalclinic.vercel.app/)
+User-agent: *
+Allow: /
+
+# Dedicated AI Search & Answer Engine Bots
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# Canonical XML Sitemap
+Sitemap: https://subikshadentalclinic.vercel.app/sitemap.xml

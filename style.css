@@ -832,13 +832,35 @@ body {
   .footer-grid { grid-template-columns: 1fr 1fr; }
 }
 
+/* FAQ Section (AEO / GEO Optimization) */
+.faq-section {
+  padding: 120px 10vw;
+  background-color: #f7f9f9;
+}
+
+.faq-subtitle {
+  text-align: center;
+  max-width: 650px;
+  margin: -40px auto 60px;
+  font-size: 1.1rem;
+  color: #666;
+  line-height: 1.6;
+}
+
+.faq-accordion-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
 @media (max-width: 768px) {
   .hero-title { font-size: 3.5rem; }
   .hero-subtitle { font-size: 1.2rem; padding: 0 15px; }
   .nav-pill { display: flex; flex-wrap: wrap; justify-content: center; }
   .nav-pill a { padding: 6px 12px; font-size: 0.85rem; }
-  .ethos-section, .excellence-section, .booking-section, .services-accordion-section, .gallery-section { gap: 40px; padding-top: 80px; padding-bottom: 80px; }
-  .services-accordion-grid { grid-template-columns: 1fr; }
+  .ethos-section, .excellence-section, .booking-section, .services-accordion-section, .gallery-section, .faq-section { gap: 40px; padding-top: 80px; padding-bottom: 80px; }
+  .services-accordion-grid, .faq-accordion-grid { grid-template-columns: 1fr; }
   .form-row { flex-direction: column; gap: 0; }
   .map-info-bar { flex-direction: column; gap: 30px; text-align: center; }
   .footer-grid { grid-template-columns: 1fr; gap: 40px; text-align: center; }
