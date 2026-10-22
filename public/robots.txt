@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://subikshadentalclinic.vercel.app/sitemap.xml
